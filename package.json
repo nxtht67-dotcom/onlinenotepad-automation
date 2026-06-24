@@ -1,0 +1,29 @@
+{
+  "name": "onlinenotepad-qa-framework",
+  "version": "1.0.0",
+  "description": "Automated QA Testing Framework for OnlineNotepad using Playwright",
+  "main": "run.ts",
+  "scripts": {
+    "test-cli": "npx tsx run.ts",
+    "auth-setup": "npx tsx scripts/auth-setup.ts",
+    "test": "npx playwright test --config config/playwright.config.ts",
+    "typecheck": "npx tsc --noEmit",
+    "generate-guide": "npx tsx scripts/generate-guide-pdf.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/pdfkit": "^0.17.6",
+    "docx": "^8.5.0",
+    "pdfkit": "^0.19.1",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.1",
+    "@types/node": "^20.12.12",
+    "@types/prompts": "^2.4.9",
+    "tsx": "^4.11.0",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,2 @@
+all sync related test cases was for sign in
+sync means when user sign in it sync from local storage to server database
