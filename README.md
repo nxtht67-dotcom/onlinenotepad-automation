@@ -1,79 +1,96 @@
-# OnlineNotepad QA Test Automation Tool - User Guide
+# 🗒️ OnlineNotepad QA Automation Suite
 
-Welcome to the automated test execution suite for **OnlineNotepad** (`https://staging.onlinenotepad.io`). 
-
-This tool is designed for Software Quality Assurance (SQA) black-box testers to run automated test cases across different browsers, verify application behaviors (like note creation, logging in, image uploads, sync, and security), and automatically generate professional execution reports.
-
-
-## First-Time Setup
-
-Before running tests, ensure you have:
-1. **Node.js** installed on your system.
-2. Opened your command line (PowerShell/Terminal) in the folder, and run:
-   ```powershell
-   npm install
-   npx playwright install
-   ```
+Automated black-box test runner for [`staging.onlinenotepad.io`](https://staging.onlinenotepad.io) — executes 19 test scenarios, captures evidence on failure, and generates Word/PDF reports.
 
 ---
 
-## How to Run Automated Tests
+## ✨ Features
 
-To launch the interactive automation suite:
+| Feature | Description |
+|---|---|
+| 🤖 Automated Regression | Runs 19 complex scenarios hands-free in a real browser |
+| 🌐 Cross-Browser | Supports Chrome, Firefox, and Edge |
+| 📸 Evidence Capture | Screenshots, console logs, and network activity on failure |
+| 📄 Report Generation | Outputs styled `.docx` and/or `.pdf` execution reports |
+
+---
+
+## ⚙️ Setup (First Time Only)
+
+Requires **Node.js** installed on your machine.
+
+```powershell
+npm install
+npx playwright install
+```
+
+---
+
+## ▶️ Running Tests
 
 ```powershell
 npm run test-cli
 ```
 
-### Guided Steps:
-1. **Select Browser**: Choose Chrome, Firefox, or Microsoft Edge.
-2. **Select Test Case**: Choose one of the 19 registered test cases (categorized by function).
-3. **Select Report Format**: Choose to output the final report in Word, PDF, or Both.
-4. **Login Details (Only if needed)**: 
-   - Some tests require logging in. If the test needs it, the tool will prompt you to type the email and password.
-   - *Note: A CAPTCHA warning is shown for login tests. Since CAPTCHA requires human interaction, be ready to solve it manually in the opened browser if it appears.*
-5. **Observe Execution**: The tool will open a headed browser window and perform all actions automatically. Do not close the browser manually while it is running.
+The CLI will walk you through 4 steps:
+
+1. **Select Browser** — Chrome, Firefox, or Edge
+2. **Select Test Case** — Pick from 19 scenarios
+3. **Select Report Format** — Word, PDF, or Both
+4. **Enter Login Credentials** *(only if the selected test requires a logged-in account)*
+
+> ⚠️ **CAPTCHA Notice:** Login tests may trigger a CAPTCHA. Keep an eye on the browser window — you may need to solve it manually before the test can proceed.
+
+The browser window will open and run automatically. **Do not close it mid-test.**
 
 ---
 
-## Description of the 19 Automated Test Cases/Scenarios
+## 🧪 Test Cases
 
-These scenarios cover critical user paths of the notepad:
+### Category A — Guest User
+| # | Name | Description |
+|---|---|---|
+| 1 | Guest Note Persistence | Note survives a page refresh without an account |
+| 10 | Local Image Upload | Upload a local image into the editor and verify it renders |
+| 11 | Third-Party Image | Insert a remote image URL and confirm it loads correctly |
 
-### Category A: Guest User Scenarios (No Login Required)
-- **1. Guest Note Persistence**: Checks that a note created as a guest remains saved in the notepad when you refresh the page.
-- **10. Local Image Upload**: Verifies you can upload a local image file into the note editor and that it displays correctly.
-- **11. Third Party Image Validation**: Verifies inserting a link to a remote image renders correctly without errors.
+### Category B — Registration & Login
+| # | Name | Description |
+|---|---|---|
+| 2 | Guest Note Assignment After Login | Guest note auto-migrates to account on sign-in |
+| 4 | Multiple Guest Notes Assignment | All 3 guest notes transfer to the account after login |
+| 13 | Account Switching | User A's notes are not visible after switching to User B |
 
-### Category B: Account Registration & Login Scenarios
-- **2. Guest Note Assignment After Login**: Verifies that when a guest creates a note and then logs in, that note is automatically moved and assigned to their registered account.
-- **4. Multiple Guest Notes Assignment**: Verifies that if a guest creates 3 separate notes and then signs in, all 3 notes are assigned to their account.
-- **13. Account Switching**: Logs in User A, creates a note, logs out, and signs in User B, confirming that User A's notes are hidden from User B.
+### Category C — Security & Ownership
+| # | Name | Description |
+|---|---|---|
+| 3 | Ownership Validation | Account B cannot access notes assigned to Account A |
 
-### Category C: Security & Note Ownership
-- **3. Ownership Validation**: Confirms that if guest notes are assigned to Account A, Account B cannot view or access them under any circumstances.
-
-### Category D: Server Synchronization & Advanced Behaviors
-- **5. Sync Status Validation**: Validates that notes transition from "unsynced" (stored only locally in the browser) to "synced" (saved to the cloud database) once saved.
-- **6. Sync Trigger On Open**: Confirms that opening a saved note refreshes the sync status and updates the modification times.
-- **7. Cross Browser Sync**: Logs in the same account on two different sessions, verifying notes synced in Session A immediately appear in Session B.
-- **8. Placeholder Notes**: Verifies note titles and metadata appear in the sidebar immediately, but the body text remains lazyloaded from the server until selected.
-- **9. Lazy Loading Validation**: Confirms that clicking a placeholder note triggers a server request to fetch the actual content.
-- **12. Delete Note Validation**: Deletes a note and verifies it is removed from both the sidebar list and the backend database.
-- **14. Offline Mode**: Simulates turning off the internet. Creates a note in offline mode (saves locally), reconnects the internet, and verifies that the note automatically syncs to the server.
-- **15. Multi Tab Validation**: Validates that editing a note in one browser tab updates the note content in another tab without data loss.
-- **16. Browser Refresh During Sync**: Refreshes the browser during a sync request to verify that no duplicate notes are created and no data is corrupted.
-- **17. Rapid Note Switching**: Rapidly switches between multiple notes to ensure the editor always loads the correct note content without lag.
-- **18. Rapid Switching While Editing**: Edits a note and immediately switches away, verifying the draft contents are preserved.
-- **19. Large Note Validation**: Tests the notepad limits with note sizes of 500KB, 900KB, 1MB, and 1.1MB, verifying that size limit warnings are shown for oversized notes.
+### Category D — Sync & Advanced Behaviors
+| # | Name | Description |
+|---|---|---|
+| 5 | Sync Status Validation | Note transitions from `unsynced` → `synced` after save |
+| 6 | Sync Trigger On Open | Opening a note refreshes sync status and timestamps |
+| 7 | Cross-Browser Sync | Notes synced in Session A appear instantly in Session B |
+| 8 | Placeholder Notes | Sidebar shows titles immediately; body lazy-loads on select |
+| 9 | Lazy Loading Validation | Clicking a placeholder fires the correct server fetch request |
+| 12 | Delete Note Validation | Deleted note is removed from sidebar and backend database |
+| 14 | Offline Mode | Note created offline auto-syncs once connection is restored |
+| 15 | Multi-Tab Validation | Edits in Tab A reflect in Tab B without data loss |
+| 16 | Browser Refresh During Sync | Refreshing mid-sync creates no duplicates or corruption |
+| 17 | Rapid Note Switching | Rapidly switching notes always loads the correct content |
+| 18 | Rapid Switching While Editing | Draft content is preserved when switching away mid-edit |
+| 19 | Large Note Validation | Tests 500 KB, 900 KB, 1 MB, 1.1 MB — validates size warnings |
 
 ---
 
-## Reading the Test Reports
+## 📊 Reading Reports
 
-Upon completion, reports are saved under the `reports/` folder.
+Reports are saved to the `reports/` folder after each run.
 
-- **Word & PDF Reports**: Show a summary of the test name, status (PASS or FAIL), date, browser, and duration.
-- **Reproduction Steps**: Lists every step performed during the test with timestamps and screenshots.
-- **Database Snapshots**: Includes a structural representation of the notepad's local storage (IndexedDB) so you can verify the values saved on the machine.
-- **Bug Ticket Logs (On Failure)**: If a test fails, the report compiles a red **BUG DETECTED** card, documenting the expected vs. actual result, a screenshot at the exact moment of failure, browser errors, and network logs.
+| Section | What It Shows |
+|---|---|
+| **Summary** | Test name, status (PASS / FAIL), date, browser, duration |
+| **Reproduction Steps** | Every action taken with timestamps and screenshots |
+| **Database Snapshots** | IndexedDB structure at time of test for local storage verification |
+| **Bug Ticket** *(on failure)* | Expected vs. actual result, failure screenshot, console errors, network logs |
