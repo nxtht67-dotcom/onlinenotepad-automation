@@ -6,7 +6,7 @@ This tool is designed for Software Quality Assurance (SQA) black-box testers to 
 
 ---
 
-## How this Tool Helps SQA Teams
+## How this Tool Helps
 
 - **Eliminates Manual Regressions**: Automatically executes 19 complex scenarios in a visible browser.
 - **Cross-Browser Verification**: Supports running tests in **Google Chrome**, **Mozilla Firefox**, and **Microsoft Edge**.
