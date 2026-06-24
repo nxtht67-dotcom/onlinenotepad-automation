@@ -4,16 +4,6 @@ Welcome to the automated test execution suite for **OnlineNotepad** (`https://st
 
 This tool is designed for Software Quality Assurance (SQA) black-box testers to run automated test cases across different browsers, verify application behaviors (like note creation, logging in, image uploads, sync, and security), and automatically generate professional execution reports.
 
----
-
-## How this Tool Helps
-
-- **Eliminates Manual Regressions**: Automatically executes 19 complex scenarios in a visible browser.
-- **Cross-Browser Verification**: Supports running tests in **Google Chrome**, **Mozilla Firefox**, and **Microsoft Edge**.
-- **Evidence-Backed Bug Reports**: When a test fails, it captures screenshot evidence, browser console logs, network activity, and error details so developers can fix the bug immediately.
-- **Dynamic Report Generation**: Generates styled execution files in Microsoft Word (`.docx`) and PDF (`.pdf`) formats showing pass/fail status and steps taken.
-
----
 
 ## First-Time Setup
 
@@ -46,7 +36,7 @@ npm run test-cli
 
 ---
 
-## Description of the 19 Automated Test Cases
+## Description of the 19 Automated Test Cases/Scenarios
 
 These scenarios cover critical user paths of the notepad:
 
