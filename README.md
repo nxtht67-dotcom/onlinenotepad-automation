@@ -39,7 +39,13 @@ The CLI will walk you through 4 steps:
 3. **Select Report Format** — Word, PDF, or Both
 4. **Enter Login Credentials** *(only if the selected test requires a logged-in account)*
 
-> ⚠️ **CAPTCHA Notice:** Login tests may trigger a CAPTCHA. Keep an eye on the browser window — you may need to solve it manually before the test can proceed.
+> ⚠️ **CAPTCHA Notice:** Login tests will trigger a CAPTCHA. Automated browsers cannot solve CAPTCHAs manually. To execute login-dependent test cases, use one of the following standard bypass approaches:
+>
+> - **Disable CAPTCHA on staging** *(recommended)* — Ask the dev team to add your staging environment to the CAPTCHA allowlist or set a `DISABLE_CAPTCHA=true` env flag.
+> - **Use a CAPTCHA-solving service** — Integrate a third-party solver (e.g., [2Captcha](https://2captcha.com), [CapSolver](https://capsolver.com)) via their Playwright-compatible browser extension or API.
+> - **Inject a test token** — If the CAPTCHA provider supports it (e.g., Google reCAPTCHA), use the official test site key/secret pair that always passes validation in non-production environments.
+>
+> Without one of the above, login-dependent tests (TC-2, TC-4, TC-7, TC-13) will stall at the CAPTCHA screen and time out.
 
 The browser window will open and run automatically. **Do not close it mid-test.**
 
